@@ -38,7 +38,9 @@ appraiseSize = [
 
 def getAppraiseIndex(num):
     bestAttr = num % 3
-    bestAttr2nd = (num + bestAttr + 1) % 4
+    bestAttr2nd = (bestAttr + num % 5) % 4
+    if bestAttr == bestAttr2nd:
+        bestAttr2nd = 3
 
     if num % 13 < 7:
         isAppraiseSize = 2
