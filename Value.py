@@ -34,7 +34,7 @@ appraiseSize = [
 ]
 
 def randAppraise(msg):
-    target = msg.msg[4:]
+    target = msg.msg[len("!분석 "):]
 
     result = msg.nick + ", 너의 " + target +"(을)를 분석해주자.\n"
     result = result + "너의 " + target + random.choice(appraiseOverall) \
