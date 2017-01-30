@@ -1,0 +1,7 @@
+setting.py
+*.swp
+*.pyc
+*.db
+*.log
+
+__pycache__/
