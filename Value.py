@@ -32,8 +32,10 @@ appraiseAttrStat = [
 
 # 안 나오기도 한다.
 appraiseSize = [
+    "(은)는 기록에 있는 한 최소인 것 같다. 놀라운데.\n",
     "(은)는 평균보다 작아.\n",
-    "(은)는 평균보다 크다.\n"
+    "(은)는 평균보다 크다.\n",
+    "의 크기는... 분류할 수 없을 정도다. 흥미로워.\n"
 ]
 
 def getAppraiseIndex(num):
@@ -42,10 +44,17 @@ def getAppraiseIndex(num):
     if bestAttr == bestAttr2nd:
         bestAttr2nd = 3
 
-    if num % 13 < 7:
-        isAppraiseSize = 2
+    sizeSpread = num % 13
+    if sizeSpread < 2 :
+        size = 0
+    elif sizeSpread < 5:
+        size = 1
+    elif sizeSpread >= 11:
+        size = 3
+    elif sizeSpread >= 8:
+        size = 2
     else:
-        isAppraiseSize = num % 2
+        size = -1
 
     grade = num % 10
     if grade == 9:
@@ -57,11 +66,11 @@ def getAppraiseIndex(num):
     if spread < 2 and overall != 0:
         attrStat = overall - 1
     elif spread >= 5 and overall != 3:
-        attrStat = overall + 1
+        attrStat = overall + 1 
     else:
         attrStat = overall
 
-    return (overall, bestAttr, bestAttr2nd, attrStat, isAppraiseSize)
+    return (overall, bestAttr, bestAttr2nd, attrStat, size)
 
 
 def randAppraise(msg):
@@ -81,7 +90,9 @@ def randAppraise(msg):
         + appraiseBestAttr2nd[bestAttr2nd] \
         + appraiseAttrStat[attrStat]
     
-    if size != 2:
+    if size == 3:
+        result = result + target + appraiseSize[size]
+    elif size != -1:
         result = result + "너의 " + target + appraiseSize[size]
 
     result = result + '\n' + "이걸로 내 분석은 끝이야."
